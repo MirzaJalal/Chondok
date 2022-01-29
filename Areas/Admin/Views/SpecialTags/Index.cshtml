@@ -1,0 +1,41 @@
+﻿@using Chondok.Models
+@model IEnumerable<SpecialTag>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<br />
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info">Special Tag List</h2>
+    </div>
+    <div class="col-6 text-right">
+        <a asp-action="Create" class="btn btn-info"><i class="fas fa-plus"></i>&nbsp; New Tag Name</a>
+    </div>
+</div>
+<br />
+<div>
+    <table class="table table-striped border">
+        <thead>
+            <tr>
+                <td>@Html.DisplayNameFor(c => c.TagName)</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.TagName</td>
+                    <td>
+                        <partial name="_ButtonPartialSpecialTag" model="@item.Id" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
