@@ -1,0 +1,69 @@
+﻿@using Chondok.Models
+@model List<Product>
+@{
+    ViewData["Title"] = "Cart";
+}
+
+
+@using Chondok.Utility
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    int count = 0;
+    List<Product> products = HttpContextAccessor.HttpContext.Session.Get<List<Product>>("products");
+    if (products == null)
+    {
+        products = new List<Product>();
+    }
+    count = products.Count();
+}
+<h1>CartModal</h1>
+
+<!-- Button trigger modal -->
+@*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        Launch demo modal
+    </button>*@
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title text-info text-center" id="exampleModalLabel">Items(@count)</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @foreach (var item in Model)
+                {
+                    <div class="row">
+                        <div class="col-4">
+                            <img src="~/@item.Image" style="height:50px; width:50px;" />
+                        </div>
+                        <diV class="col-4">
+                            <p> @item.Name</p>
+                        </diV>
+                        <diV class="col-4">
+                            <p> @item.Price</p>
+                        </diV>
+                    </div>
+                }
+            <div class="row" style="padding-top:5px;">
+                <div class="col-4 text-left text-secondary">
+                    Total Price: 
+                </div>
+                <div class="col-4"></div>
+                <div class="col-4">
+                    <h6 class="font-weight-bold">@Model.Sum(c => c.Price)</h6>
+                </div>
+            </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a asp-controller="Home" asp-action="Cart" class="btn btn-success"><i class="fas fa-shopping-cart"></i>Go to Cart</a>
+            </div>
+        </div>
+    </div>
+</div>

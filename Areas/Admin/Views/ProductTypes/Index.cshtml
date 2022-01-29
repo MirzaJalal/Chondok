@@ -1,0 +1,56 @@
+﻿@using Chondok.Models
+@model IEnumerable<ProductTypes>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<br />
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info">Product Type List</h2>
+    </div>
+    <div class="col-6 text-right">
+        <a asp-action="Create" class="btn btn-info"><i class="fas fa-plus"></i>&nbsp; Product Type</a>
+    </div>
+</div>
+<br />
+<div>
+    <table class="table table-striped border">
+        <thead>
+            <tr>
+                <td>@Html.DisplayNameFor(c => c.ProductType)</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ProductType</td>
+                    <td>
+                        <partial name="_ButtonPartial" model="@item.Id" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+@section scripts{
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var save = '@TempData["save"]';
+            var del = '@TempData["del"]';
+            if (save != '') {
+                alertify.success(save);
+            }
+            if (del != '') {
+                alertify.error(del);
+            }
+        })
+    </script>
+}

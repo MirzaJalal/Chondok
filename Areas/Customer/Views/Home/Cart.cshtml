@@ -1,0 +1,51 @@
+﻿@using Chondok.Models
+@model List<Product>
+@{
+    ViewData["Title"] = "Cart";
+}
+
+<h1>Your Cart</h1>
+<br />
+<div class="row">
+    <table class="table table-bordered" style="text-align:center;">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Product Type</th>
+                <th>Color</th>
+                <th>Remove</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="~/@item.Image" style="height:130px; width:110px;" />
+                    </td>
+                    <td>@item.Name</td>
+                    <td>@item.Price</td>
+                    <td>@item.ProductTypes.ProductType</td>
+                    <td>@item.ProductColor</td>
+                    <td>
+                        <a asp-area="Customer" asp-action="Remove" asp-controller="Home" asp-route-id="@Model" class="btn btn-danger">
+                            <i class="far fa-trash-alt"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="row">
+    <div class="col-6">
+        <a asp-action="Index" asp-controller="Home" class="btn btn-success">Back to Home</a>
+    </div>
+    <div class="col-6 text-right">
+        <h4>Total Amount</h4>
+        <h4>Grand Total: @Model.Sum(c => c.Price) tk</h4>
+        <a asp-area="Customer" asp-action="Checkout" asp-controller="Order" class="btn btn-info">Process to Checkout</a>
+    </div>
+</div>
