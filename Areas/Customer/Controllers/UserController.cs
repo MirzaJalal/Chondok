@@ -20,7 +20,6 @@ namespace Chondok.Areas.Customer.Controllers
             _userManager = userManager;
             _db = db;
         }
-
         public IActionResult Index()
         {
             var user = _db.ApplicationUsers.ToList();

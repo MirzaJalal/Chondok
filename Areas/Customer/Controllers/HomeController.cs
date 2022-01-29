@@ -99,17 +99,17 @@ namespace Chondok.Controllers
 
             return View(products);
         }
-        public IActionResult CartModal()
-        {
-            List<Product> products = HttpContext.Session.Get<List<Product>>("products");
+        //public IActionResult CartModal()
+        //{
+        //    List<Product> products = HttpContext.Session.Get<List<Product>>("products");
 
-            if (products == null)
-            {
-                products = new List<Product>();
-            }
+        //    if (products == null)
+        //    {
+        //        products = new List<Product>();
+        //    }
 
-            return View(products);
-        }
+        //    return View(products);
+        //}
 
         public IActionResult Privacy()
         {

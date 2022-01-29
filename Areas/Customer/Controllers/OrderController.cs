@@ -27,25 +27,29 @@ namespace Chondok.Areas.Customer.Controllers
         //POST Checkout
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Checkout(Order order)
+        public async Task<IActionResult> Checkout(Order order, Product pr)
         {
-            List<Product> products = HttpContext.Session.Get<List<Product>>("products");
-            if (products != null)
-            {
-                foreach (var product in products)
+                List<Product> products = HttpContext.Session.Get<List<Product>>("products");
+                if (products != null)
                 {
-                    OrderDetails orderDetails = new OrderDetails();
-                    orderDetails.ProductId = product.Id;
-                    order.OrderDetails.Add(orderDetails);
+                    foreach (var product in products)
+                    {
+                        OrderDetails orderDetails = new OrderDetails();
+                        orderDetails.ProductId = product.Id;
+                        order.OrderDetails.Add(orderDetails);
+                    }
                 }
-            }
-            order.OrderNo = GetOrderNo();
-            _db.Orders.Add(order);
-            await _db.SaveChangesAsync();
-            HttpContext.Session.Set("products", null);
+                order.OrderNo = GetOrderNo();
+                _db.Orders.Add(order);
+                await _db.SaveChangesAsync();
+                HttpContext.Session.Set("products", new List<Product>());
+            pr.StockInNo--;
+            _db.SaveChanges();
+
             return View();
+            //return RedirectToAction("Index", "HomeController");
         }
-        
+
         public string GetOrderNo()
         {
             int rowCount = _db.Orders.ToList().Count()+1;

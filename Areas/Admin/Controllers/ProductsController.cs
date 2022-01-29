@@ -45,6 +45,18 @@ namespace Chondok.Areas.Admin.Controllers
             return View(product);
         }
 
+        //Counter
+        public IActionResult Counter(int id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var product = _db.products.Include(c => c.ProductTypes).Include(c => c.SpecialTag).ToList();
+            
+            return View(product);
+        }
+
         //GET Create
         public IActionResult create()
         {

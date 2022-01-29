@@ -26,6 +26,10 @@ namespace Chondok.Models
         public bool IsAvailable { get; set; }
 
         [Required]
+        [Display(Name="Number of Stocks")]
+        public int StockInNo { get; set; }
+
+        [Required]
         [Display(Name ="Product Type")]
         public int ProductTypeId { get; set; }
 

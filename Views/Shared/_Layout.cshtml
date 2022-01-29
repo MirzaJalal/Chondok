@@ -70,21 +70,31 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="Admin" asp-controller="Products" asp-action="Index">Product</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Roles" asp-action="Assign">Assign Role</a>
+                            </li>
                         }
+                        @*<li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Customer" asp-controller="Home" data-toggle="modal" data-target="#exampleModal" asp-action="CartModal">
+                <i class="fas fa-shopping-cart">
+                    (@count)
+                </i>
+            </a>
+        </li>*@
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Customer" asp-controller="Home" data-toggle="modal" data-target="#exampleModal" asp-action="CartModal">
+                            <a class="nav-link text-dark" asp-area="Customer" asp-controller="Home" asp-action="Cart">
                                 <i class="fas fa-shopping-cart">
                                     (@count)
                                 </i>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Customer" asp-controller="Home" data-toggle="modal" data-target="#exampleModal" asp-action="CartModal">
-                                <i class="far fa-heart">
-                                    (@count)
-                                </i>
-                            </a>
-                        </li>
+                        @*<li class="nav-item"> Need to fix wishlist
+            <a class="nav-link text-dark" asp-area="Customer" asp-controller="Home" data-toggle="modal" data-target="#exampleModal" asp-action="CartModal">
+                <i class="far fa-heart">
+                    (@count)
+                </i>
+            </a>
+        </li>*@
                     </ul>
                 </div>
             </div>
