@@ -133,18 +133,18 @@ namespace Chondok.Areas.Admin.Controllers
             //        return View(product);
             //    }
 
-                //if (image != null)
-                //{
-                //    var name = Path.Combine(_he.WebRootPath + "/images", Path.GetFileName(image.FileName));
-                //    await image.CopyToAsync(new FileStream(name, FileMode.Create));
-                //    product.Image = "images/" + image.FileName;
-                //}
-                //if (image == null)
-                //{
-                //    product.Image = "images/noImage.png";
-                //}
+            if (image != null)
+            {
+                var name = Path.Combine(_he.WebRootPath + "/images", Path.GetFileName(image.FileName));
+                await image.CopyToAsync(new FileStream(name, FileMode.Create));
+                product.Image = "images/" + image.FileName;
+            }
+            if (image == null)
+            {
+                product.Image = "images/noImage.png";
+            }
 
-                var prod = _db.products.Update(product);
+            var prod = _db.products.Update(product);
                 await _db.SaveChangesAsync();
                 TempData["edit"] = "Product details updated!";
                 return RedirectToAction(nameof(Index));
