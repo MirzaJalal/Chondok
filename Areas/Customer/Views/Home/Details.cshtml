@@ -1,24 +1,21 @@
 ﻿@model Chondok.Models.Product
-@{
-    ViewData["Title"] = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+@{ ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
 
 @using Chondok.Utility
 @using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor HttpContextAccessor
-@{
-    List<Product> products = HttpContextAccessor.HttpContext.Session.Get<List<Product>>("products");
+@{ List<Product> products = HttpContextAccessor.HttpContext.Session.Get<List<Product>>("products");
 
     Product product = null;
 
     if (products != null)
     {
         product = products.FirstOrDefault(c => c.Id == Model.Id);
-    }
-}
+    } }
 
 <h1 class="text-info">Product Details</h1>
+<p class="text-danger">@ViewBag.message</p>
 <form asp-action="Details" method="post" enctype="multipart/form-data">
     <div class="p-4 rounded border row">
         <div asp-validation-summary="ModelOnly" class="text-danger">
@@ -74,12 +71,10 @@
                 <div class="col-8">
                     @if (Model.IsAvailable == true)
                     {
-                        <p class="h6">In Stock</p>
-                    }
-                    else
-                    {
-                        <p class="h6">Out of Stock</p>
-                    }
+        <p class="h6">In Stock</p> }
+    else
+    {
+<p class="h6">Out of Stock</p>}
                 </div>
                 <span asp-validation-for="ProductTypeId" class="text-danger"></span>
             </div>
@@ -88,34 +83,31 @@
                 <div class="col-4">
                 </div>
                 @*<div class="col-8">
+                        @if (product != null)
+                        {
+                            <button type="submit" class="btn btn-danger form-control" asp-action="Remove" asp-route-id="@Model.Id">Remove from Cart</button>
+                        }
+                        else
+                        {
+                            <input type="submit" class="btn btn-info form-control" value="Add to Cart" />
+
+                        }
+                    </div>*@
+
                 @if (product != null)
                 {
-                    <button type="submit" class="btn btn-danger form-control" asp-action="Remove" asp-route-id="@Model.Id">Remove from Cart</button>
-                }
-                else
-                {
-                    <input type="submit" class="btn btn-info form-control" value="Add to Cart" />
-
-                }
-            </div>*@
-
-                @if (product != null)
-                {
-                    <div class="col-4">
-                        <input type="submit" class="btn btn-info form-control" value="Add to Cart" />
-                    </div>
+    <div class="col-4">
+        <input type="submit" class="btn btn-info form-control" value="Add to Cart" />
+    </div>
                     <div class="col-4">
                         @*<input type="submit" asp-area="Customer" asp-action="Remove" asp-controller="Home" asp-route-id="@Model.Id" class="btn btn-danger form-control" value="Remove from Cart" />*@
                         <button type="submit" class="btn btn-danger form-control" asp-action="Remove" asp-route-id="@Model.Id">Remove from Cart</button>
-                    </div>
-                }
+                    </div> }
                 else
                 {
-                    <div class="col-8">
-                        <input type="submit" class="btn btn-info form-control" value="Add to Cart" />
-                    </div>
-
-                }
+    <div class="col-8">
+        <input type="submit" class="btn btn-info form-control" value="Add to Cart" />
+    </div>}
 
                 <span asp-validation-for="IsAvailable" class="text-danger"></span>
             </div>
@@ -128,13 +120,24 @@
             <img src="~/@Model.Image" style="width:100%; border-radius:5px; border:1px solid #efefef" />
             @if (Model.IsAvailable)
             {
-                <img src="~/images/inStock.jpg" style="height:80px; width:220px;" />
-
-            }
-            else
-            {
-                <img src="~/images/outOfStock.png" style="height:80px; width:220px;" />
-            }
+<img src="~/images/inStock.jpg" style="height:80px; width:220px;" /> }
+else
+{
+<img src="~/images/outOfStock.png" style="height:80px; width:220px;" />}
         </div>
     </div>
 </form>
+
+@section scripts{
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var save = '@TempData["save"]';
+
+            if (save != '') {
+                alertify.error(save);
+            }
+
+        });
+    </script>
+}

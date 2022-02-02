@@ -90,7 +90,7 @@ namespace Chondok.Areas.Admin.Controllers
                 {
                     product.Image = "images/noImage.PNG";
                 }
-
+                //product.StockInNo++;
                 var prod = _db.products.Add(product);
                 await _db.SaveChangesAsync();
                 TempData["save"] = "Product has been added successfully!";
@@ -99,6 +99,7 @@ namespace Chondok.Areas.Admin.Controllers
 
             return View(product);
         }
+
 
         //GET Edit
         public ActionResult Edit(int? id)
@@ -143,9 +144,9 @@ namespace Chondok.Areas.Admin.Controllers
             {
                 product.Image = "images/noImage.png";
             }
-
+            //product.StockInNo++;
             var prod = _db.products.Update(product);
-                await _db.SaveChangesAsync();
+            await _db.SaveChangesAsync();
                 TempData["edit"] = "Product details updated!";
                 return RedirectToAction(nameof(Index));
             //}

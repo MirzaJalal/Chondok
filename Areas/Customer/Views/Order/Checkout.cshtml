@@ -85,14 +85,13 @@
                     <tbody>
                         @foreach (var item in products)
                         {
-                            <tr>
-                                <td>
-                                    <img src="~/@item.Image" style="height:60px;width:60px;" />
-                                </td>
-                                <td>@item.Name</td>
-                                <td>@item.Price</td>
-                            </tr>
-                        }
+            <tr>
+                <td>
+                    <img src="~/@item.Image" style="height:60px;width:60px;" />
+                </td>
+                <td>@item.Name</td>
+                <td>@item.Price</td>
+            </tr>}
                     </tbody>
                 </table>
             </div>
@@ -107,6 +106,7 @@
         @*<a asp-action="Index" asp-controller="Home" class="btn btn-success">Place Order</a>*@
 
     </div>
+    <a asp-area="Customer" asp-controller="Home" asp-action="Index" class="btn btn-success">Back to List</a>
 </form>
 
 

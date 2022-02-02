@@ -66,29 +66,56 @@ namespace Chondok.Controllers
                 products = new List<Product>();
             }
             products.Add(product);
-            HttpContext.Session.Set("products", products);
+            //var x = products.Count();
+            if(product.StockInNo == 0)
+            {
+                ViewBag.message = "This product is out of Stock!";
+                TempData["save"] = "This product is out of Stock!";
+            }
+            else
+            {
+                product.StockInNo--;
+                _db.SaveChanges();
+                HttpContext.Session.Set("products", products);
+            }
             return View(product);
+
+        }
+
+        [ActionName("Remove")]
+        public IActionResult RemoveToCart(int? id)
+        {
+            List<Product> products = HttpContext.Session.Get<List<Product>>("products");
+            if (products != null)
+            {
+                var product = products.FirstOrDefault(c => c.Id == id);
+                if (product != null)
+                {
+                    products.Remove(product);
+                    HttpContext.Session.Set("products", new List<Product>());
+                }
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]
         public IActionResult Remove(int? id)
         {
             List<Product> products = HttpContext.Session.Get<List<Product>>("products");
-
-            if(products != null)
+            if (products != null)
             {
                 var product = products.FirstOrDefault(c => c.Id == id);
                 if (product != null)
                 {
                     products.Remove(product);
-                    HttpContext.Session.Set("products", products);
+                    HttpContext.Session.Set("products", new List<Product>());
                 }
             }
             return RedirectToAction(nameof(Index));
         }
 
         //GET Product Cart
-        public IActionResult Cart()
+        public IActionResult Cart(Product product)
         {
             List<Product> products = HttpContext.Session.Get<List<Product>>("products");
 
@@ -99,17 +126,6 @@ namespace Chondok.Controllers
 
             return View(products);
         }
-        //public IActionResult CartModal()
-        //{
-        //    List<Product> products = HttpContext.Session.Get<List<Product>>("products");
-
-        //    if (products == null)
-        //    {
-        //        products = new List<Product>();
-        //    }
-
-        //    return View(products);
-        //}
 
         public IActionResult Privacy()
         {

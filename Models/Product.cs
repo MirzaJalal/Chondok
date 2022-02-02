@@ -43,5 +43,9 @@ namespace Chondok.Models
         [ForeignKey("SpecialTagId")]
         public SpecialTag SpecialTag { get; set; }
 
+        [Display(Name ="Total Stock Available")]
+        public int StockId { get; set; }
+        [ForeignKey("StockId")]
+        public Stock Stock { get; set; }
     }
 }

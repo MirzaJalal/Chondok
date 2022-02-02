@@ -4,14 +4,16 @@ using Chondok.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Chondok.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220202140821_AddStockEntityInModel")]
+    partial class AddStockEntityInModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -87,8 +89,6 @@ namespace Chondok.Data.Migrations
 
                     b.Property<int>("SpecialTagId");
 
-                    b.Property<int>("StockId");
-
                     b.Property<int>("StockInNo");
 
                     b.HasKey("Id");
@@ -96,8 +96,6 @@ namespace Chondok.Data.Migrations
                     b.HasIndex("ProductTypeId");
 
                     b.HasIndex("SpecialTagId");
-
-                    b.HasIndex("StockId");
 
                     b.ToTable("products");
                 });
@@ -343,11 +341,6 @@ namespace Chondok.Data.Migrations
                     b.HasOne("Chondok.Models.SpecialTag", "SpecialTag")
                         .WithMany()
                         .HasForeignKey("SpecialTagId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Chondok.Models.Stock", "Stock")
-                        .WithMany()
-                        .HasForeignKey("StockId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
