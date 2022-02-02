@@ -122,33 +122,33 @@ namespace Chondok.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(Product product, IFormFile image)
         {
-            if (ModelState.IsValid)
-            {
-                var searchProduct = _db.products.FirstOrDefault(c => c.Name == product.Name);
-                if(searchProduct != null)
-                {
-                    ViewBag.message = "This product already exists!";
-                    ViewData["ProductTypeId"] = new SelectList(_db.productTypes.ToList(), "Id", "ProductType");
-                    ViewData["SpecialTagId"] = new SelectList(_db.specialTags.ToList(), "Id", "TagName");
-                    return View(product);
-                }
+            //if (ModelState.IsValid)
+            //{
+            //    var searchProduct = _db.products.FirstOrDefault(c => c.Name == product.Name);
+            //    if(searchProduct != null)
+            //    {
+            //        ViewBag.message = "This product already exists!";
+            //        ViewData["ProductTypeId"] = new SelectList(_db.productTypes.ToList(), "Id", "ProductType");
+            //        ViewData["SpecialTagId"] = new SelectList(_db.specialTags.ToList(), "Id", "TagName");
+            //        return View(product);
+            //    }
 
-                if (image != null)
-                {
-                    var name = Path.Combine(_he.WebRootPath + "/images", Path.GetFileName(image.FileName));
-                    await image.CopyToAsync(new FileStream(name, FileMode.Create));
-                    product.Image = "images/" + image.FileName;
-                }
-                if (image == null)
-                {
-                    product.Image = "images/noImage.png";
-                }
+                //if (image != null)
+                //{
+                //    var name = Path.Combine(_he.WebRootPath + "/images", Path.GetFileName(image.FileName));
+                //    await image.CopyToAsync(new FileStream(name, FileMode.Create));
+                //    product.Image = "images/" + image.FileName;
+                //}
+                //if (image == null)
+                //{
+                //    product.Image = "images/noImage.png";
+                //}
 
                 var prod = _db.products.Update(product);
                 await _db.SaveChangesAsync();
                 TempData["edit"] = "Product details updated!";
                 return RedirectToAction(nameof(Index));
-            }
+            //}
             return View(product);
         }
 
